@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->unsignedInteger('role_id')->references('id')->on('roles');
-            $table->rememberToken();
+        Schema::create('book_category', function (Blueprint $table) {
+            $table->unsignedInteger('book_id')->references('id')->on('books');
+            $table->unsignedInteger('category_id')->references('id')->on('categories');
         });
     }
 
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('book_category');
     }
 };
