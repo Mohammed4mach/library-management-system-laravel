@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('borrowed_books', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->unsignedInteger('role_id')->references('id')->on('roles');
-            $table->rememberToken();
+            $table->unsignedInteger('user_id')->references('id')->on('users');
+            $table->unsignedInteger('book_id')->references('id')->on('books');
+            $table->boolean('returned');
+            $table->date('return_date');
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('borrowed_books');
     }
 };
