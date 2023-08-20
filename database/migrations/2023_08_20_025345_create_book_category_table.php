@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('book_category', function (Blueprint $table) {
             $table->unsignedInteger('book_id')->references('id')->on('books');
             $table->unsignedInteger('category_id')->references('id')->on('categories');
+            $table->timestamps();
         });
     }
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
+            $table->timestamps();
             $table->unsignedInteger('author_id')->references('id')->on('authors');
 
         });
