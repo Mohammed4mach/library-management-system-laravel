@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedInteger('book_id')->references('id')->on('books');
             $table->boolean('returned');
             $table->date('return_date');
+            $table->timestamps();
         });
     }
 
