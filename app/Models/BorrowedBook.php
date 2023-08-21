@@ -11,11 +11,11 @@ class BorrowedBook extends Model
 
     public function user(){
 
-    return $this->hasMany(User::class);
+    return $this->belongsTo(User::class);
     }
 
     public function Book(){
 
-    return $this->hasMany(Book::class);
+    return $this->belongsTo(Book::class);
     }
 }
