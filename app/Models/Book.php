@@ -16,7 +16,7 @@ class Book extends Model
 
     public function Category(){
 
-    return $this->hasMany(Category::class);
+    return $this->hasMany(Category::class, "book_category", "book_id", "category_id");
     }
 
     public function Author(){
