@@ -22,7 +22,7 @@ Route::get('/', function () {
 \Auth::routes();
 
 // Admin routes
-Route::middleware([ 'auth' ])->prefix('admin')->group(function() {
+Route::middleware([ 'auth', 'role:admin' ])->prefix('admin')->group(function() {
     Route::resources(
         [
             'authors'        => AuthorController::class,
@@ -40,7 +40,7 @@ Route::middleware([ 'auth' ])->prefix('admin')->group(function() {
 
 // User routes
 Route::middleware([ 'auth' ])->group(function() {
-    Route::get('/home', [ App\Http\Controllers\HomeController::class, 'index' ])->name('home');
+    Route::get('/home', [ HomeController::class, 'index' ])->name('home');
 
     // Authors
     Route::get('/authors',      [ AuthorController::class, 'userIndex' ]);
@@ -56,7 +56,7 @@ Route::middleware([ 'auth' ])->group(function() {
     Route::post('/books/{book}/borrowed-books', [ BorrowedBookController::class, 'userStore' ]);
     Route::patch('/borrowed-books/{id}',        [ BorrowedBookController::class, 'return' ]);
 
-    // User
+    // Users
     Route::get('users/self', [ UserController::class, 'show' ]);
 });
 

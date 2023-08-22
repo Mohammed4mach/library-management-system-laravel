@@ -14,7 +14,7 @@ class BorrowedBook extends Model
     return $this->belongsTo(User::class);
     }
 
-    public function Book(){
+    public function book(){
 
     return $this->belongsTo(Book::class);
     }
