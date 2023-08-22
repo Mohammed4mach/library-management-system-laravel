@@ -12,14 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-        });
-
-        DB::table('roles')->insert([
-            [ 'title' => 'admin' ],
-            [ 'title' => 'student' ],
+        DB::table('users')->insert([
+            'name'              => 'Admin',
+            'email'             => 'admin@admin.com',
+            'password'          => '$2y$10$f2cQ159P5m.MHQJC0EtwhehIXvAe/eTjmifvwwI7bncPmzLSfdZzm',
         ]);
     }
 
@@ -28,6 +24,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };
