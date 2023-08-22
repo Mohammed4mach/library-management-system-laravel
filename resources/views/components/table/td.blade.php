@@ -1,3 +1,3 @@
-<div>
-    <!-- Well begun is half done. - Aristotle -->
-</div>
+<td {{ $attributes->class([ 'table__td' ]) }}>
+    {{ $slot }}
+</td>
