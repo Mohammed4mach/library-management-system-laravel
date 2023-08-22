@@ -15,6 +15,14 @@ class AuthorController extends Controller
     }
 
     /**
+     * Display a listing of the resource for user.
+     */
+    public function userIndex()
+    {
+
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()

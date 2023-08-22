@@ -15,6 +15,24 @@ class BookController extends Controller
     }
 
     /**
+     * Display a listing of the resource for user.
+     */
+    public function userIndex()
+    {
+        //
+    }
+
+    /**
+     * Display a listing of the books belongs to a category
+     *
+     * @param string $category The category of the books
+     */
+    public function getOfCategory(string $category)
+    {
+
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
