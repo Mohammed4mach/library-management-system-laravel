@@ -22,7 +22,7 @@ Route::get('/', function () {
 \Auth::routes();
 
 // Admin routes
-Route::middleware([ 'auth' ])->prefix('admin')->group(function() {
+Route::middleware([ 'auth', 'role:admin' ])->prefix('admin')->group(function() {
     Route::resources(
         [
             'authors'        => AuthorController::class,

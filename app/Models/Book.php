@@ -9,17 +9,17 @@ class Book extends Model
 {
     use HasFactory;
 
-    public function BorrowedBook(){
+    public function borrowedBooks(){
 
     return $this->hasMany(BorrowedBook::class);
     }
 
-    public function Category(){
+    public function categories(){
 
     return $this->hasMany(Category::class, "book_category", "book_id", "category_id");
     }
 
-    public function Author(){
+    public function author(){
 
     return $this->belongsTo(Author::class);
     }
