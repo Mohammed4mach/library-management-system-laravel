@@ -22,7 +22,7 @@ function is_admin() : bool
     $roles = user_roles();
 
     $roleId     = $roles['admin'];
-    $userRoleId = auth()->user()->role_id;
+    $userRoleId = auth()->user()?->role_id ?? -1;
 
     if($roleId !== $userRoleId)
         return false;
