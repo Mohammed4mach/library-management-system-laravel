@@ -1,0 +1,132 @@
+@mixin flex
+{
+    display: flex;
+}
+
+@mixin flex-center
+{
+    @include flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-column
+{
+    @include flex;
+
+    flex-direction: column;
+}
+
+.flex-center
+{
+    @include flex-center;
+}
+
+.flex-column
+{
+    @include flex-column;
+}
+
+.block
+{
+    display: block;
+}
+
+@mixin grid
+{
+    display: grid;
+}
+
+@mixin grid-center
+{
+    @include grid;
+
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin background-as-color
+{
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@for $i from 1 through 10
+{
+    @for $j from 1 through 10
+    {
+        .grid_#{$i}x#{$j}_1fr
+        {
+            @include grid;
+
+            grid-template-rows: repeat(#{$i}, 1fr);
+            grid-template-columns: repeat(#{$j}, 1fr);
+        }
+    }
+}
+
+@for $i from 1 through 10
+{
+    @for $j from 1 through 10
+    {
+        .grid_#{$i}x#{$j}_auto
+        {
+            @include grid;
+
+            grid-template-rows: repeat(#{$i}, auto);
+            grid-template-columns: repeat(#{$j}, auto);
+        }
+    }
+}
+
+@for $value from 1 through 10//0
+{
+    @for $i from 1 through 10
+    {
+        @for $j from 1 through 10
+        {
+            .grid_#{$i}x#{$j}_#{$value}px
+            {
+                @include grid;
+
+                grid-template-rows: repeat(#{$i}, #{$value});
+                grid-template-columns: repeat(#{$j}, #{$value});
+            }
+        }
+    }
+}
+
+@for $value from 1 through 40
+{
+    .margin-top-#{$value}px
+    {
+        margin-top: #{$value}px
+    }
+
+    .margin-right-#{$value}px
+    {
+        margin-right: #{$value}px
+    }
+
+    .margin-bottom-#{$value}px
+    {
+        margin-bottom: #{$value}px
+    }
+
+    .margin-left-#{$value}px
+    {
+        margin-left: #{$value}px
+    }
+
+    .margin-inline-#{$value}px
+    {
+        margin-inline: #{$value}px
+    }
+
+    .margin-block-#{$value}px
+    {
+        margin-block: #{$value}px
+    }
+}
+

@@ -1,6 +1,69 @@
 // Variables
-@import 'variables';
+@use "variables" as *;
+
+// Framework
+@import "framework";
 
 // Table
-@import 'table';
+@import "table";
+
+// Hx e.g. h1, h2, h3, etc...
+@import "h";
+
+// Buttons
+@import "button";
+
+// Nav
+@import "nav";
+
+*
+{
+    padding: 0;
+    margin: 0;
+}
+
+body
+{
+    @include flex-column;
+    min-height: 100vh;
+    color: #333;
+
+    font: {
+        family: $font-primary;
+        weight: normal;
+        style: normal;
+    }
+}
+
+.logo
+{
+    width: 350px;
+}
+
+#app
+{
+    width: 90%;
+    margin-inline: auto;
+    flex: 1;
+}
+
+.wood-word
+{
+    @include background-as-color;
+
+    background-image: url('../images/backgrounds/wood.jpg');
+}
+
+.landing-book-poster
+{
+    width: 100%;
+}
+
+.footer
+{
+    padding: 5px;
+    margin-top: 20px;
+    color: #666;
+    font-size: 14px;
+}
 

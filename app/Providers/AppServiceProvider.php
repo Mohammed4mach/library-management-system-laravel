@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,5 +23,10 @@ class AppServiceProvider extends ServiceProvider
     {
         // Admin directive, like @auth
         Blade::if('admin', fn() : bool => is_admin());
+
+        // Vite aliases
+        Vite::macro('logo', fn(string $asset) => $this->asset("resources/images/logo/{$asset}"));
+        Vite::macro('image', fn(string $asset) => $this->asset("resources/images/{$asset}"));
+        Vite::macro('background', fn(string $asset) => $this->asset("resources/images/backgrounds/{$asset}"));
     }
 }

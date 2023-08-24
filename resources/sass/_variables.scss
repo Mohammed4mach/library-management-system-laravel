@@ -1,10 +1,11 @@
+@import "font-face";
+
 // Body
-$body-bg: #f8fafc;
+$body-bg: #ffffff;
 
 // Typography
-$font-family-sans-serif: sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+$font-primary: "DM Serif Text";
+$font-secondary: "Antic Didone";
 $font-s1: 1.5rem;
 $font-s2: 1.26rem;
 $font-s3: 18px;
@@ -13,11 +14,15 @@ $font-s5: 0.78rem;
 
 
 // Colors
-$main-color: #175bb2;
-$secondary-color: #00155b;
+$main-color: #175BB2;
+$secondary-color: #00155B;
 $sky-color: #B4DED4;
+$color-primary: #77D4FC;
+$color-secondary: #4B91F1;
+$color-green: #118822;
+$color-red: #CC1111;
 
 // Borders
-$main-border: 1px solid #b4ded4;
-$main-border-radius: 12px;
+$main-border: 1px solid #B4DED4;
+$main-border-radius: 10px;
 
