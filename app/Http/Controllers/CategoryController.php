@@ -11,7 +11,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $data = Category::get();
+        return view("",["data"->$data]);
     }
 
     /**
@@ -19,7 +20,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view("");
     }
 
     /**
@@ -27,7 +28,10 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        Category::create([
+        'name' => $request->name,
+        ]);
+        return redirect("")->with('message',"Category Added");
     }
 
     /**
@@ -43,15 +47,20 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Category::where('id', $id)->first();
+        return view("",['data'=>$data]);
     }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(StoreCategoryRequest $request, string $id)
     {
-        //
+        Category::where('id', $id)->update([
+        'name' => $request->name,
+        ]);
+        return redirect("")->with('message',"Category Updated");
     }
 
     /**
@@ -59,6 +68,7 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Category::where('id', $id)->delete();
+        return redirect("")->with('message',"Category Deleted");
     }
 }

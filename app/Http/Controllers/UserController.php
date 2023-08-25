@@ -12,7 +12,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users');
+        $users = User::get();
+
+        return view('admin.users', ["users" => $users]);
     }
 
     /**
@@ -20,7 +22,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view("");
     }
 
     /**
@@ -28,7 +30,12 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role_id' => $request->role_id,
+        ]);
+        return redirect("")->with('message',"User Added");
     }
 
     /**
@@ -56,7 +63,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = User::where('id', $id)->first();
+        return view("", ['data' => $data]);
     }
 
     /**
@@ -64,7 +72,13 @@ class UserController extends Controller
      */
     public function update(StoreUserRequest $request, string $id)
     {
-        //
+        User::where('id', $id)->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'role_id' => $request->role_id,
+
+        ]);
+        return redirect("")->with('message',"User Updated");
     }
 
     /**
@@ -72,6 +86,7 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        User::where('id', $id)->delete();
+        return redirect("")->with('message',"User Deleted");
     }
 }

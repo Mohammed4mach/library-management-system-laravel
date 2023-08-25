@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBorrowedBookRequest;
+use App\Models\Book;
+use App\Models\BorrowedBook;
+use App\Models\User;
 
 class BorrowedBookController extends Controller
 {
@@ -11,7 +14,8 @@ class BorrowedBookController extends Controller
      */
     public function index()
     {
-        //
+        BorrowedBook::get();
+        return view("");
     }
 
     /**
@@ -21,6 +25,7 @@ class BorrowedBookController extends Controller
      */
     public function getOfCategory(string $user)
     {
+
     }
 
 
@@ -29,7 +34,7 @@ class BorrowedBookController extends Controller
      */
     public function create()
     {
-        //
+        return view("");
     }
 
     /**
@@ -37,7 +42,15 @@ class BorrowedBookController extends Controller
      */
     public function store(StoreBorrowedBookRequest $request)
     {
-        //
+        $user_id = User::where('name',$request->user_name)->first();
+        $book_id = Book::where('name',$request->book_name)->first();
+        BorrowedBook::create([
+        'user_id' => $user_id,
+        'book_id' => $book_id,
+        'returned' => $request->returned,
+        'return_date' => $request->return_date,
+        ]);
+        return redirect("")->with('message',"Book Borrowed");
     }
 
     /**
@@ -63,7 +76,8 @@ class BorrowedBookController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = BorrowedBook::where('id', $id)->first();
+        return view("",["data"=>$data]);
     }
 
     /**
@@ -71,7 +85,15 @@ class BorrowedBookController extends Controller
      */
     public function update(StoreBorrowedBookRequest $request, string $id)
     {
-        //
+        $user_id = User::where('name',$request->user_name)->first();
+        $book_id = Book::where('name',$request->book_name)->first();
+        BorrowedBook::where('id', $id)->update([
+        'user_id' => $user_id['id'],
+        'book_id' => $book_id['id'],
+        'returned' => $request->returned,
+        'return_date' => $request->return_date,
+        ]);
+        return redirect("")->with('message',"Borrow Updated");
     }
 
     /**
@@ -79,6 +101,7 @@ class BorrowedBookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        BorrowedBook::where('id', $id)->delete();
+        return redirect("")->with('message' , "Borrow Deleted");
     }
 }

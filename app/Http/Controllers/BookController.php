@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookRequest;
+use App\Models\Author;
+use App\Models\Book;
 
 class BookController extends Controller
 {
@@ -11,7 +13,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        Book::get();
+        return view("");
     }
 
     /**
@@ -19,7 +22,8 @@ class BookController extends Controller
      */
     public function userIndex()
     {
-        //
+        Book::get();
+        return view("");
     }
 
     /**
@@ -27,7 +31,7 @@ class BookController extends Controller
      *
      * @param string $category The category of the books
      */
-    public function getOfCategory(string $category)
+    public function getOfCategory(string $category) //category_id passe for condition
     {
 
     }
@@ -37,7 +41,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view("");
     }
 
     /**
@@ -45,7 +49,13 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        //
+        $author_id = Author::where('name',$request->author_name)->first();
+        Book::create([
+        'title' => $request->title,
+        'describtion' => $request->describtion,
+        'author_id' => $author_id['id'],
+        ]);
+        return redirect("")->with('message',"Book Added");
     }
 
     /**
@@ -61,7 +71,8 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Book::where('id', $id)->first();
+        return view("");
     }
 
     /**
@@ -69,7 +80,13 @@ class BookController extends Controller
      */
     public function update(StoreBookRequest $request, string $id)
     {
-        //
+        $author_id = Author::where('name',$request->author_name)->first();
+        Book::where('id', $id)->update([
+            'title' => $request->title,
+            'describtion' => $request->describtion,
+            'author_id' => $author_id['id'],
+        ]);
+        return redirect("")->with('message',"Book Updated");
     }
 
     /**
@@ -77,6 +94,7 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Book::where('id', $id)->delete();
+        return redirect("")->with('message',"Book Deleted");
     }
 }

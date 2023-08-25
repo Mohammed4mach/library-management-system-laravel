@@ -11,7 +11,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $data = Role::get();
+        return view("",["data"->$data]);
     }
 
     /**
@@ -19,7 +20,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        return view("");
+
     }
 
     /**
@@ -27,7 +29,10 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
-        //
+        Role::create([
+        'title' => $request->title,
+        ]);
+        return redirect("")->with('message',"Role Added");
     }
 
     /**
@@ -43,7 +48,9 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Role::where('id', $id)->first();
+        return view("",['data'=>$data]);
+
     }
 
     /**
@@ -51,7 +58,10 @@ class RoleController extends Controller
      */
     public function update(StoreRoleRequest $request, string $id)
     {
-        //
+        Role::where('id', $id)->update([
+        'title' => $request->name,
+        ]);
+        return redirect("")->with('message',"Role Updated");
     }
 
     /**
@@ -59,6 +69,7 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Role::where('id', $id)->delete();
+        return redirect("")->with('message',"Role Deleted");
     }
 }
