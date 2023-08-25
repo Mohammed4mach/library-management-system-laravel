@@ -5,6 +5,7 @@
     $profileActive  = $url === route('profile');
     $categoryActive = $url === route('categories');
     $authorActive   = $url === route('authors');
+    $adminActive    = str_contains($url, "admin");
 @endphp
 
 <nav class="nav">
@@ -27,16 +28,11 @@
                 <a class="nav__a {{ $authorActive ? 'nav__a--active' : ''}}" href="{{ route('authors') }}">
                     Authors
                 </a>
-
-                {{-- <a class="nav__a--small" href="{{ route('logout') }}" --}}
-                {{--    onclick="event.preventDefault(); --}}
-                {{--                  document.getElementById('logout-form').submit();"> --}}
-                {{--     Logout --}}
-                {{-- </a> --}}
-
-                {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> --}}
-                {{--     @csrf --}}
-                {{-- </form> --}}
+                @admin
+                    <a class="nav__a {{ $adminActive ? 'nav__a--active' : ''}}" href="{{ route('users.index') }}">
+                        Dashboard
+                    </a>
+                @endadmin
             </div>
         @else
             <div class="nav__right nav__elem--ceil">

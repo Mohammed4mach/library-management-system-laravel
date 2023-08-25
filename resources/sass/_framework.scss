@@ -18,6 +18,31 @@
     flex-direction: column;
 }
 
+@mixin flex-self-start
+{
+    align-self: flex-start;
+}
+
+@mixin flex-self-end
+{
+    align-self: flex-end;
+}
+
+.flex-self-start
+{
+    @include flex-self-start;
+}
+
+.flex-self-end
+{
+    @include flex-self-end;
+}
+
+.flex
+{
+    @include flex;
+}
+
 .flex-center
 {
     @include flex-center;
@@ -31,6 +56,36 @@
 .block
 {
     display: block;
+}
+
+.width-full
+{
+    width: 100%;
+}
+
+.height-full
+{
+    height: 100%;
+}
+
+.width-fit-content
+{
+    width: fit-content;
+}
+
+.height-fit-content
+{
+    height: fit-content;
+}
+
+.width-max-content
+{
+    width: max-content;
+}
+
+.height-max-content
+{
+    height: fit-content;
 }
 
 @mixin grid
@@ -97,36 +152,46 @@
     }
 }
 
-@for $value from 1 through 40
+$__directions: 'top', 'right', 'bottom', 'left', 'inline', 'block';
+
+@for $value from 1 through 60
 {
-    .margin-top-#{$value}px
+    @each $direction in $__directions
     {
-        margin-top: #{$value}px
+        .margin-#{$direction}-#{$value}px
+        {
+            margin-#{$direction}: #{$value}px;
+        }
     }
+}
 
-    .margin-right-#{$value}px
+@each $direction in $__directions
+{
+    .margin-#{$direction}-auto
     {
-        margin-right: #{$value}px
+        margin-#{$direction}: auto;
     }
+}
 
-    .margin-bottom-#{$value}px
+@for $value from 1 through 10
+{
+    @each $direction in $__directions
     {
-        margin-bottom: #{$value}px
+        .border-#{$direction}-#{$value}px
+        {
+            border-#{$direction}: #{$value}px solid #0007;
+        }
     }
+}
 
-    .margin-left-#{$value}px
+@for $value from 1 through 25
+{
+    @each $direction in $__directions
     {
-        margin-left: #{$value}px
-    }
-
-    .margin-inline-#{$value}px
-    {
-        margin-inline: #{$value}px
-    }
-
-    .margin-block-#{$value}px
-    {
-        margin-block: #{$value}px
+        .padding-#{$direction}-#{$value}px
+        {
+            padding-#{$direction}: #{$value}px;
+        }
     }
 }
 

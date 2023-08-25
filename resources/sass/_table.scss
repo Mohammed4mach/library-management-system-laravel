@@ -60,5 +60,29 @@
             text-align: center;
         }
     }
+
+    @media (min-width: 300px)
+    {
+        @at-root #{&}--250px
+        {
+            width: 250px;
+        }
+    }
+
+    @media (min-width: 700px)
+    {
+        @at-root #{&}--500px
+        {
+            width: 500px;
+        }
+    }
+
+    @media (min-width: 1200px)
+    {
+        @at-root #{&}--1000px
+        {
+            width: 1000px;
+        }
+    }
 }
 

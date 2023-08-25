@@ -7,36 +7,23 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} - Home</title>
+    <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
 
     <link rel="icon" href="{{ Vite::logo('icon.svg') }}">
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite([
+        'resources/sass/app.scss',
+        'resources/js/app.js',
+        'resources/css/font-awesome.min.css',
+        'resources/js/font-awesome.min.js'
+    ])
 </head>
 <body>
     @include('nav')
 
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+    <main id="app">
+        @yield('content')
+    </main>
 
     @include('footer')
 </body>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 
 class UserController extends Controller
@@ -11,7 +12,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.users');
     }
 
     /**
@@ -36,6 +37,18 @@ class UserController extends Controller
     public function show(string $id)
     {
         //
+    }
+
+    /**
+     * Display the user profile.
+     */
+    public function getProfile()
+    {
+        $id          = auth()->id();
+        $user        = User::find($id);
+        $user->title = $user->role()->get()->first()?->title;
+
+        return view('user.profile', $user);
     }
 
     /**

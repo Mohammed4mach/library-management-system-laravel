@@ -16,6 +16,9 @@
 // Nav
 @import "nav";
 
+// User Components
+@import "user";
+
 *
 {
     padding: 0;
@@ -47,6 +50,14 @@ body
     flex: 1;
 }
 
+.footer
+{
+    padding: 5px;
+    margin-top: 20px;
+    color: #666;
+    font-size: 14px;
+}
+
 .wood-word
 {
     @include background-as-color;
@@ -59,11 +70,46 @@ body
     width: 100%;
 }
 
-.footer
+.a
 {
-    padding: 5px;
-    margin-top: 20px;
-    color: #666;
-    font-size: 14px;
+    color: $color-anchor;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover
+    {
+        color: rgba($color-anchor, 0.93);
+    }
+
+    @at-root #{&}--red
+    {
+        @extend .a;
+
+        color: $color-anchor-red;
+
+        &:hover
+        {
+            color: rgba($color-anchor-red, 0.8);
+        }
+    }
+
+    @at-root #{&}--green
+    {
+        @extend .a;
+
+        color: $color-anchor-green;
+
+        &:hover
+        {
+            color: rgba($color-anchor-green, 0.94);
+        }
+    }
+
+    @at-root #{&}--small
+    {
+        @extend .a;
+
+        font-size: $font-s5;
+    }
 }
 

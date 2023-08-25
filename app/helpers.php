@@ -13,7 +13,7 @@ function user_roles() : array | null
 }
 
 /**
- * Determine if user is admin
+ * Determine if the user is admin
  *
  * @return bool True if user is admin, otherwise false
  */

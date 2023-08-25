@@ -8,7 +8,12 @@
 
     <link rel="icon" href="{{ Vite::logo('icon.svg') }}">
 
-    @vite([ 'resources/sass/app.scss', 'resources/js/app.js' ])
+    @vite([
+        'resources/sass/app.scss',
+        'resources/js/app.js',
+        'resources/css/font-awesome.min.css',
+        'resources/js/font-awesome.min.js'
+    ])
 </head>
 <body>
     @include('nav')

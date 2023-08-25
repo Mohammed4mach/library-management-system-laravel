@@ -44,22 +44,22 @@ Route::middleware([ 'auth' ])->group(function() {
 
     // Authors
     Route::get('/authors',      [ AuthorController::class, 'userIndex' ])->name('authors');
-    Route::get('/authors/{id}', [ AuthorController::class, 'show' ]);
+    Route::get('/authors/{id}', [ AuthorController::class, 'show' ])->name('author');
 
     // Books
-    Route::get('/books',                       [ BookController::class, 'userIndex' ])->name('books');
-    Route::get('/books/{id}',                  [ BookController::class, 'show' ]);
-    Route::get('/categories/{category}/books', [ BookController::class, 'getOfCategory' ]);
+    Route::get('/books',           [ BookController::class, 'userIndex' ])->name('books');
+    Route::get('/books/{id}',      [ BookController::class, 'show' ])->name('book');
 
     // Categories
-    Route::get('/categories/', [ CategoryController::class, 'userIndex' ])->name('categories');
+    Route::get('/categories/',     [ CategoryController::class, 'userIndex' ])->name('categories');
+    Route::get('/categories/{id}', [ CategoryController::class, 'show' ])->name('category');
 
     // Borrowed Books
-    Route::get('/users/{user}/borrowed-books',  [ BorrowedBookController::class, 'getOfUser' ]);
-    Route::post('/books/{book}/borrowed-books', [ BorrowedBookController::class, 'userStore' ]);
-    Route::patch('/borrowed-books/{id}',        [ BorrowedBookController::class, 'return' ]);
+    Route::post('/books/{book}/borrowed-books', [ BorrowedBookController::class, 'userStore' ])->name('borrow-book');
+    Route::patch('/borrowed-books/{id}',        [ BorrowedBookController::class, 'return' ])->name('return-book');
 
     // Users
-    Route::get('users/self', [ UserController::class, 'getProfile' ])->name('profile');
+    Route::get('/users/self',        [ UserController::class, 'getProfile' ])->name('profile');
+    Route::get('/users/{user}/edit', [ UserController::class, 'edit' ])->middleware('owner')->name('user-edit');
 });
 

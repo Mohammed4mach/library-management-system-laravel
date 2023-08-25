@@ -28,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
         Vite::macro('logo', fn(string $asset) => $this->asset("resources/images/logo/{$asset}"));
         Vite::macro('image', fn(string $asset) => $this->asset("resources/images/{$asset}"));
         Vite::macro('background', fn(string $asset) => $this->asset("resources/images/backgrounds/{$asset}"));
+        Vite::macro('icon', fn(string $asset) => $this->asset("resources/images/icons/{$asset}"));
     }
 }
