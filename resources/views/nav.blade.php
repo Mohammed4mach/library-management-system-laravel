@@ -5,7 +5,29 @@
     $profileActive  = $url === route('profile');
     $categoryActive = $url === route('categories');
     $authorActive   = $url === route('authors');
-    $adminActive    = str_contains($url, "admin");
+
+    $links = [
+        [
+            'name' => 'Home',
+            'route' => 'home',
+            'active' => $homeActive
+        ],
+        [
+            'name' => 'Profile',
+            'route' => 'profile',
+            'active' => $profileActive
+        ],
+        [
+            'name' => 'Categories',
+            'route' => 'categories',
+            'active' => $categoryActive
+        ],
+        [
+            'name' => 'Authors',
+            'route' => 'authors',
+            'active' => $authorActive
+        ],
+    ];
 @endphp
 
 <nav class="nav">
@@ -16,20 +38,13 @@
     @if (Route::has('login'))
         @auth
             <div class="nav__right nav__elem--floor">
-                <a class="nav__a {{ $homeActive ? 'nav__a--active' : ''}}" href="{{ route('home') }}">
-                    Home
-                </a>
-                <a class="nav__a {{ $profileActive ? 'nav__a--active' : ''}}" href="{{ route('profile') }}">
-                    Profile
-                </a>
-                <a class="nav__a {{ $categoryActive ? 'nav__a--active' : ''}}" href="{{ route('categories') }}">
-                    Categories
-                </a>
-                <a class="nav__a {{ $authorActive ? 'nav__a--active' : ''}}" href="{{ route('authors') }}">
-                    Authors
-                </a>
+                @foreach($links as $link)
+                    <a class="nav__a {{ $link['active'] ? 'nav__a--active' : '' }}" href="{{ route($link['route']) }}">
+                        {{ $link['name'] }}
+                    </a>
+                @endforeach
                 @admin
-                    <a class="nav__a {{ $adminActive ? 'nav__a--active' : ''}}" href="{{ route('users.index') }}">
+                    <a class="nav__a" href="{{ route('users.index') }}">
                         Dashboard
                     </a>
                 @endadmin

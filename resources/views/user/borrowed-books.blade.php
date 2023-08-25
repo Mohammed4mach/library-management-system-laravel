@@ -1,7 +1,7 @@
 <section class="margin-bottom-50px">
     <x-h1 class="margin-bottom-40px width-full flex-center">Borrowed Books</x-h1>
 
-    @empty($books)
+    @if($books->count() == 0)
         <x-h3 class="width-full flex-center">No borrowed books</x-h3>
     @else
         <x-table.container>
@@ -55,6 +55,6 @@
                 @endforeach
             </x-table>
         </x-table.container>
-    @endempty
+    @endif
 </section>
 

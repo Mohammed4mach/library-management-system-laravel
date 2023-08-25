@@ -16,6 +16,7 @@ return new class extends Migration
             'name'              => 'Admin',
             'email'             => 'admin@admin.com',
             'password'          => '$2y$10$f2cQ159P5m.MHQJC0EtwhehIXvAe/eTjmifvwwI7bncPmzLSfdZzm',
+            'role_id'           => 1
         ]);
     }
 

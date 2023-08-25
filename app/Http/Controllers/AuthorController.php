@@ -12,8 +12,9 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $data = Author::get();
-        return view("",["data"->$data]);
+        $authors = Author::get();
+
+        return view('admin.authors', [ 'authors' => $authors ]);
     }
 
     /**
@@ -30,7 +31,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        return view("");
+        return view('admin.forms.author.create');
     }
 
     /**
@@ -41,7 +42,8 @@ class AuthorController extends Controller
         Author::create([
             'name' => $request->name,
         ]);
-        return redirect("")->with('message',"Author Added");
+
+        return redirect(route('authors.index'))->with('message', 'Author Added');
     }
 
     /**
@@ -78,6 +80,7 @@ class AuthorController extends Controller
     public function destroy(string $id)
     {
         Author::where('id', $id)->delete();
-        return redirect("")->with('message',"Author Deleted");
+
+        return redirect(route('authors.index'))->with('message', 'Author Added');
     }
 }

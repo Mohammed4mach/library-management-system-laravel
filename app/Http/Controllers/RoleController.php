@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Http\Requests\StoreRoleRequest;
 
 class RoleController extends Controller
@@ -11,8 +12,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $data = Role::get();
-        return view("",["data"->$data]);
+        $roles = Role::get();
+
+        return view('admin.roles', [ 'roles' => $roles ]);
     }
 
     /**
@@ -20,8 +22,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view("");
-
+        return view('admin.forms.role.create');
     }
 
     /**

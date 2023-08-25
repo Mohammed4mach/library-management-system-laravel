@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 
 class CategoryController extends Controller
@@ -11,8 +12,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = Category::get();
-        return view("",["data"->$data]);
+        $categories = Category::get();
+
+        return view("admin.categories", [ "categories" => $categories ]);
     }
 
     /**
@@ -20,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view("");
+        return view('admin.forms.category.create');
     }
 
     /**
@@ -31,7 +33,8 @@ class CategoryController extends Controller
         Category::create([
         'name' => $request->name,
         ]);
-        return redirect("")->with('message',"Category Added");
+
+        return redirect(route('categories.index'))->with('message', 'Category Added');
     }
 
     /**
@@ -69,6 +72,7 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         Category::where('id', $id)->delete();
-        return redirect("")->with('message',"Category Deleted");
+
+        return redirect(route('categories.index'))->with('message', 'Category Deleted');
     }
 }

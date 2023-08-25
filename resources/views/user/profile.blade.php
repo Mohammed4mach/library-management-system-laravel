@@ -37,53 +37,6 @@
         </section>
     </section>
 
-    @php
-        $books = [
-            [
-                "id" => 1,
-                "book_id" => 1,
-                "book_title" => "Eloquent Javascript",
-                "created_at" => "2023-05-11 20:15",
-                "return_date" => "2023-08-15",
-            ],
-            [
-                "id" => 2,
-                "book_id" => 1,
-                "book_title" => "Eloquent Javascript",
-                "created_at" => "2023-05-11 20:15",
-                "return_date" => "2023-08-15",
-            ],
-            [
-                "id" => 3,
-                "book_id" => 1,
-                "book_title" => "Eloquent Javascript",
-                "created_at" => "2023-05-11 20:15",
-                "return_date" => "2023-08-15",
-            ],
-            [
-                "id" => 4,
-                "book_id" => 1,
-                "book_title" => "Eloquent Javascript",
-                "created_at" => "2023-05-11 20:15",
-                "return_date" => "2023-08-15",
-            ],
-            [
-                "id" => 5,
-                "book_id" => 1,
-                "book_title" => "Eloquent Javascript",
-                "created_at" => "2023-05-11 20:15",
-                "return_date" => "2023-08-15",
-            ],
-            [
-                "id" => 6,
-                "book_id" => 1,
-                "book_title" => "Eloquent Javascript",
-                "created_at" => "2023-05-11 20:15",
-                "return_date" => "2023-08-15",
-            ],
-        ];
-    @endphp
-
     @include('user.borrowed-books', $books)
 @endsection
 

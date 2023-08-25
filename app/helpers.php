@@ -17,14 +17,16 @@ function user_roles() : array | null
  *
  * @return bool True if user is admin, otherwise false
  */
-function is_admin() : bool
+function is_admin($roleId = null) : bool
 {
     $roles = user_roles();
 
-    $roleId     = $roles['admin'];
-    $userRoleId = auth()->user()?->role_id ?? -1;
+    $adminId     = $roles['admin'];
 
-    if($roleId !== $userRoleId)
+    if($roleId === null)
+        $roleId = auth()->user()?->role_id ?? -1;
+
+    if($adminId !== $roleId)
         return false;
 
     return true;

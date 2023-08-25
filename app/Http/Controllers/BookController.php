@@ -13,8 +13,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        Book::get();
-        return view("");
+        $books = Book::get();
+
+        return view('admin.books', ['books' => $books]);
     }
 
     /**
@@ -41,7 +42,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view("");
+        $authors = Author::get();
+
+        return view('admin.forms.book.create', [ 'authors' => $authors ]);
     }
 
     /**
@@ -49,13 +52,13 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        $author_id = Author::where('name',$request->author_name)->first();
         Book::create([
-        'title' => $request->title,
-        'describtion' => $request->describtion,
-        'author_id' => $author_id['id'],
+            'title' => $request->title,
+            'describtion' => $request->describtion,
+            'author_id' => $request->author_id,
         ]);
-        return redirect("")->with('message',"Book Added");
+
+        return redirect(route('books.index'))->with('message', 'Book Added');
     }
 
     /**

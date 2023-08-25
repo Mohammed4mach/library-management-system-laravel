@@ -14,8 +14,9 @@ class BorrowedBookController extends Controller
      */
     public function index()
     {
-        BorrowedBook::get();
-        return view("");
+        $books = BorrowedBook::get();
+
+        return view('admin.borrowed-books', [ 'books' => $books ]);
     }
 
     /**
@@ -34,7 +35,7 @@ class BorrowedBookController extends Controller
      */
     public function create()
     {
-        return view("");
+        return view('admin.forms.borrowed-book.create');
     }
 
     /**

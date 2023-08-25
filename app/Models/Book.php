@@ -9,6 +9,17 @@ class Book extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'title',
+        'describtion',
+        'author_id',
+    ];
+
     public function borrowedBooks(){
 
     return $this->hasMany(BorrowedBook::class);

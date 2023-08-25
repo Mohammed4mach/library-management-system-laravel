@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\StoreUserRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -14,7 +16,7 @@ class UserController extends Controller
     {
         $users = User::get();
 
-        return view('admin.users', ["users" => $users]);
+        return view('admin.users', [ 'users' => $users ]);
     }
 
     /**
@@ -22,7 +24,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view("");
+        $roles = Cache::get('roles');
+
+        return view('admin.forms.user.create', [ 'roles' => $roles ]);
     }
 
     /**
@@ -30,12 +34,18 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        $roles = Cache::get('roles');
+
+        $role_id = $request->has('role_id') ? $request->role_id : $roles['student'];
+
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'role_id' => $request->role_id,
+            'password' => Hash::make($request->password),
+            'role_id' => $role_id,
         ]);
-        return redirect("")->with('message',"User Added");
+
+        return redirect(route('users.index'))->with('message', 'User Added');
     }
 
     /**
@@ -43,7 +53,11 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user          = User::findOrFail($id);
+        $user->title   = $user->role()->get()->first()?->title;
+        $books = $user->borrowedBooks;
+
+        return view('user.profile', $user, [ 'books' => $books ]);
     }
 
     /**
@@ -52,10 +66,11 @@ class UserController extends Controller
     public function getProfile()
     {
         $id          = auth()->id();
-        $user        = User::find($id);
+        $user        = User::findOrFail($id);
         $user->title = $user->role()->get()->first()?->title;
+        $books       = $user->borrowedBooks;
 
-        return view('user.profile', $user);
+        return view('user.profile', $user, [ 'books' => $books ]);
     }
 
     /**
@@ -63,8 +78,10 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $data = User::where('id', $id)->first();
-        return view("", ['data' => $data]);
+        $user  = User::where('id', $id)->first();
+        $roles = Cache::get('roles');
+
+        return view('admin.forms.user.update', $user, [ 'role' => $user->role, 'roles' => $roles ]);
     }
 
     /**
@@ -75,9 +92,9 @@ class UserController extends Controller
         User::where('id', $id)->update([
         'name' => $request->name,
         'email' => $request->email,
-        'role_id' => $request->role_id,
-
+        'password' => $request->password
         ]);
+
         return redirect("")->with('message',"User Updated");
     }
 
@@ -86,7 +103,15 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        User::where('id', $id)->delete();
-        return redirect("")->with('message',"User Deleted");
+        $user = User::findOrFail($id);
+        $role = $user->role;
+
+        // If admin abort
+        if($role?->title === "admin")
+            abort(403);
+
+        $user->delete();
+
+        return redirect(route('users.index'))->with('message', 'User Deleted');
     }
 }

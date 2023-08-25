@@ -30,12 +30,13 @@ Route::middleware([ 'auth', 'role:admin' ])->prefix('admin')->group(function() {
             'borrowed-books' => BorrowedBookController::class,
             'categories'     => CategoryController::class,
             'roles'          => RoleController::class,
-            'users'          => UserController::class,
         ],
         [
             'except' => [ 'show' ]
         ]
     );
+
+    Route::resource('users', UserController::class);
 });
 
 // User routes
@@ -44,15 +45,15 @@ Route::middleware([ 'auth' ])->group(function() {
 
     // Authors
     Route::get('/authors',      [ AuthorController::class, 'userIndex' ])->name('authors');
-    Route::get('/authors/{id}', [ AuthorController::class, 'show' ])->name('author');
+    Route::get('/authors/{id}', [ AuthorController::class, 'show' ])->name('authors.show');
 
     // Books
     Route::get('/books',           [ BookController::class, 'userIndex' ])->name('books');
-    Route::get('/books/{id}',      [ BookController::class, 'show' ])->name('book');
+    Route::get('/books/{id}',      [ BookController::class, 'show' ])->name('books.show');
 
     // Categories
     Route::get('/categories/',     [ CategoryController::class, 'userIndex' ])->name('categories');
-    Route::get('/categories/{id}', [ CategoryController::class, 'show' ])->name('category');
+    Route::get('/categories/{id}', [ CategoryController::class, 'show' ])->name('categories.show');
 
     // Borrowed Books
     Route::post('/books/{book}/borrowed-books', [ BorrowedBookController::class, 'userStore' ])->name('borrow-book');
@@ -61,5 +62,6 @@ Route::middleware([ 'auth' ])->group(function() {
     // Users
     Route::get('/users/self',        [ UserController::class, 'getProfile' ])->name('profile');
     Route::get('/users/{user}/edit', [ UserController::class, 'edit' ])->middleware('owner')->name('user-edit');
+    Route::put('/users/{user}',      [ UserController::class, 'update' ])->middleware('owner')->name('user-update');
 });
 
