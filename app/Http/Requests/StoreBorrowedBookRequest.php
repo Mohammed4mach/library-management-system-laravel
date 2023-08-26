@@ -22,7 +22,7 @@ class StoreBorrowedBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'return_date' => 'required|date',
         ];
     }
 }
