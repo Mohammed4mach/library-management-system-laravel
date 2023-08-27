@@ -92,9 +92,10 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, string $id)
     {
-        User::where('id', $id)->update(
-            $request->validated()
-        );
+        User::where('id', $id)->update([
+            ...$request->validated(),
+            'password' => Hash::make($request->password)
+        ]);
 
         // If update own data, redirect to profile. Otherwise redirect to users table
         $route = strval(auth()->id()) === $id ? route('profile') : route('users.index');

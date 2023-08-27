@@ -77,7 +77,7 @@
             </div>
         @endadmin
 
-        <x-button.create class="margin-top-40px">Add</x-button.create>
+        <x-button.create class="margin-top-40px">Update</x-button.create>
     </form>
 @endsection
 

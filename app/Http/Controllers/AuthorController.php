@@ -59,8 +59,9 @@ class AuthorController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Author::where('id', $id)->first();
-        return view("",['data'=>$data]);
+        $author = Author::where('id', $id)->first();
+
+        return view('admin.forms.author.update', $author);
     }
 
     /**
@@ -71,7 +72,8 @@ class AuthorController extends Controller
         Author::where('id', $id)->update([
             'name' => $request->name,
         ]);
-        return redirect("")->with('message',"Author Updated");
+
+        return redirect(route('authors.index'))->with('message', 'Author Updated');
     }
 
     /**

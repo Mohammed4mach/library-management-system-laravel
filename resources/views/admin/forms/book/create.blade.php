@@ -26,7 +26,7 @@
             @enderror
         </div>
 
-        <div class="flex-column">
+        <div class="flex-column margin-top-20px">
             <x-label class="margin-bottom-7px" required>Title</x-label>
             <x-input.text placeholder="Title" name="title" />
 

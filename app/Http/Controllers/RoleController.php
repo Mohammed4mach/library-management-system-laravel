@@ -31,9 +31,10 @@ class RoleController extends Controller
     public function store(StoreRoleRequest $request)
     {
         Role::create([
-        'title' => $request->title,
+            'title' => $request->title,
         ]);
-        return redirect("")->with('message',"Role Added");
+
+        return redirect(route('roles.index'))->with('message', 'Role Added');
     }
 
     /**
@@ -49,9 +50,9 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Role::where('id', $id)->first();
-        return view("",['data'=>$data]);
+        $role = Role::findOrFail($id);
 
+        return view('admin.forms.role.update', $role);
     }
 
     /**
@@ -60,9 +61,10 @@ class RoleController extends Controller
     public function update(StoreRoleRequest $request, string $id)
     {
         Role::where('id', $id)->update([
-        'title' => $request->name,
+            'title' => $request->name,
         ]);
-        return redirect("")->with('message',"Role Updated");
+
+        return redirect(route('roles.index'))->with('message', 'Role Updated');
     }
 
     /**
@@ -71,6 +73,7 @@ class RoleController extends Controller
     public function destroy(string $id)
     {
         Role::where('id', $id)->delete();
-        return redirect("")->with('message',"Role Deleted");
+
+        return redirect(route('roles.index'))->with('message', 'Role Deleted');
     }
 }

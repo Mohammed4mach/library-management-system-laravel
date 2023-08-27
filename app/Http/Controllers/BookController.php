@@ -83,8 +83,12 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Book::where('id', $id)->first();
-        return view("");
+        $authors        = Author::get();
+        $categories     = Category::select([ 'id', 'name' ])->get();
+        $book           = Book::where('id', $id)->first();
+        $bookCategories = $book->categories()->get();
+
+        return view('admin.forms.book.update', $book, compact('authors', 'categories', 'bookCategories'));
     }
 
     /**
@@ -92,13 +96,19 @@ class BookController extends Controller
      */
     public function update(StoreBookRequest $request, string $id)
     {
-        $author_id = Author::where('name',$request->author_name)->first();
-        Book::where('id', $id)->update([
-            'title' => $request->title,
+        $categories = $request->categories; // Categories IDs
+
+        $book = Book::find($id);
+
+        $book->update([
+            'title'       => $request->title,
             'describtion' => $request->describtion,
-            'author_id' => $author_id['id'],
+            'author_id'   => $request->author_id,
         ]);
-        return redirect("")->with('message',"Book Updated");
+
+        $book->categories()->sync($categories);
+
+        return redirect(route('books.index'))->with('message','Book Updated');
     }
 
     /**

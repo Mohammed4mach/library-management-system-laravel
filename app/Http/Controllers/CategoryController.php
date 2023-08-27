@@ -50,8 +50,9 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Category::where('id', $id)->first();
-        return view("",['data'=>$data]);
+        $category = Category::where('id', $id)->first();
+
+        return view('admin.forms.category.update', $category);
     }
 
 
@@ -61,9 +62,10 @@ class CategoryController extends Controller
     public function update(StoreCategoryRequest $request, string $id)
     {
         Category::where('id', $id)->update([
-        'name' => $request->name,
+            'name' => $request->name,
         ]);
-        return redirect("")->with('message',"Category Updated");
+
+        return redirect(route('categories.index'))->with('message', 'Category Updated');
     }
 
     /**
