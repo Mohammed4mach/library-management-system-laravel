@@ -22,7 +22,7 @@ class StoreBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|unique',
+            'title' => 'required|string',
         ];
     }
 }
