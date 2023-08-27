@@ -2,7 +2,8 @@
 
 .button
 {
-    width: 120px;
+    width: fit-content;
+    min-width: 120px;
     padding: 13px;
     border: none;
     border-radius: $main-border-radius;

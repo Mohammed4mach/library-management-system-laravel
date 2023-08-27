@@ -10,17 +10,35 @@
 
         <div class="flex-column">
             <x-label class="margin-bottom-7px" required>Name</x-label>
-            <x-input.text placeholder="Fullname" name="name" />
+            <x-input.text placeholder="Fullname" name="name" value="{{ old('name') }}" />
+
+            @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
 
         <div class="flex-column margin-top-20px">
             <x-label class="margin-bottom-7px" required>Email</x-label>
-            <x-input.email placeholder="Email" name="email" />
+            <x-input.email placeholder="Email" name="email" value="{{ old('email') }}"/>
+
+            @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
 
         <div class="flex-column margin-top-20px">
             <x-label class="margin-bottom-7px" required>Password</x-label>
             <x-input.password placeholder="Password" name="password" />
+
+            @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
 
         <div class="flex-column margin-top-20px">
@@ -31,6 +49,12 @@
                     <option value="{{ $id }}">{{ $title }}</option>
                 @endforeach
             </x-input.select>
+
+            @error('role_id')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
 
         <x-button.create class="margin-top-40px">Add</x-button.create>

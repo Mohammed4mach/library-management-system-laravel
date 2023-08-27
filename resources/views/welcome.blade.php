@@ -27,11 +27,19 @@
                     <x-h3>Please sign up here.</x-h3>
                 </div>
 
-                <a class="margin-block-20px" href="{{ route('register') }}">
-                    <x-button>
-                        Sign up
-                    </x-button>
-                </a>
+                @auth
+                    <a class="margin-block-20px" href="{{ route('home') }}">
+                        <x-button.create>
+                            Explore
+                        </x-button>
+                    </a>
+                @else
+                    <a class="margin-block-20px" href="{{ route('register') }}">
+                        <x-button>
+                            Sign up
+                        </x-button>
+                    </a>
+                @endauth
 
                 <p>
                     Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.

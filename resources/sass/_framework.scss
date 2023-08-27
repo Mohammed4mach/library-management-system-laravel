@@ -135,7 +135,7 @@
     }
 }
 
-@for $value from 1 through 10//0
+@for $value from 1 through 20
 {
     @for $i from 1 through 10
     {
@@ -192,6 +192,19 @@ $__directions: 'top', 'right', 'bottom', 'left', 'inline', 'block';
         {
             padding-#{$direction}: #{$value}px;
         }
+    }
+}
+
+@for $value from 1 through 500
+{
+    .width-#{$value}px
+    {
+        width: #{$value}px
+    }
+
+    .height-#{$value}px
+    {
+        height: #{$value}px
     }
 }
 
