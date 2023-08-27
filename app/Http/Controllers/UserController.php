@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -16,7 +17,7 @@ class UserController extends Controller
     {
         $users = User::get();
 
-        return view('admin.users', [ 'users' => $users ]);
+        return view('admin.users', ['users' => $users]);
     }
 
     /**
@@ -26,7 +27,7 @@ class UserController extends Controller
     {
         $roles = Cache::get('roles');
 
-        return view('admin.forms.user.create', [ 'roles' => $roles ]);
+        return view('admin.forms.user.create', ['roles' => $roles]);
     }
 
     /**
@@ -57,7 +58,7 @@ class UserController extends Controller
         $user->title   = $user->role()->get()->first()?->title;
         $books = $user->borrowedBooks;
 
-        return view('user.profile', $user, [ 'books' => $books ]);
+        return view('user.profile', $user, ['books' => $books]);
     }
 
     /**
@@ -70,7 +71,7 @@ class UserController extends Controller
         $user->title = $user->role()->get()->first()?->title;
         $books       = $user->borrowedBooks;
 
-        return view('user.profile', $user, [ 'books' => $books ]);
+        return view('user.profile', $user, ['books' => $books]);
     }
 
     /**
@@ -81,21 +82,22 @@ class UserController extends Controller
         $user  = User::where('id', $id)->first();
         $roles = Cache::get('roles');
 
-        return view('admin.forms.user.update', $user, [ 'role' => $user->role, 'roles' => $roles ]);
+        return view('admin.forms.user.update', $user, ['role' => $user->role, 'roles' => $roles]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreUserRequest $request, string $id)
+    public function update(UpdateUserRequest $request, string $id)
     {
-        User::where('id', $id)->update([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => $request->password
-        ]);
+        User::where('id', $id)->update(
+            $request->validated()
+        );
 
-        return redirect("")->with('message',"User Updated");
+        // If update own data, redirect to profile. Otherwise redirect to users table
+        $route = strval(auth()->id()) === $id ? route('profile') : route('users.index');
+
+        return redirect($route)->with('message', "User Updated");
     }
 
     /**
@@ -107,7 +109,7 @@ class UserController extends Controller
         $role = $user->role;
 
         // If admin abort
-        if($role?->title === "admin")
+        if ($role?->title === "admin")
             abort(403);
 
         $user->delete();
