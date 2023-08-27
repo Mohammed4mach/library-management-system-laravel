@@ -16,22 +16,23 @@ class Book extends Model
      */
     protected $fillable = [
         'title',
+        'cover',
         'describtion',
         'author_id',
     ];
 
     public function borrowedBooks(){
 
-    return $this->hasMany(BorrowedBook::class);
+        return $this->hasMany(BorrowedBook::class);
     }
 
     public function categories(){
 
-    return $this->hasMany(Category::class, "book_category", "book_id", "category_id");
+        return $this->belongsToMany(Category::class, 'books_categories', 'book_id', 'category_id');
     }
 
     public function author(){
 
-    return $this->belongsTo(Author::class);
+        return $this->belongsTo(Author::class);
     }
 }

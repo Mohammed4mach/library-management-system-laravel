@@ -25,9 +25,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Cache::get('roles');
+        $roles      = Cache::get('roles');
 
-        return view('admin.forms.user.create', ['roles' => $roles]);
+        return view('admin.forms.user.create', [
+            'roles'      => $roles,
+        ]);
     }
 
     /**

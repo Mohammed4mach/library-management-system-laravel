@@ -5,7 +5,12 @@
 @section('content')
     <x-h1 class="width-full flex-center margin-bottom-40px">Add New User</x-h1>
 
-    <form autocomplete="off" class="flex-center flex-column" method="POST" action="{{ route('users.store') }}">
+    <form
+        class="flex-center flex-column"
+        method="POST"
+        action="{{ route('users.store') }}"
+        enctype="multipart/form-data"
+    >
         @csrf
 
         <div class="flex-column">

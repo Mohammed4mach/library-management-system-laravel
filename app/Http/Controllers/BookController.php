@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBookRequest;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Category;;
 
 class BookController extends Controller
 {
@@ -43,8 +44,12 @@ class BookController extends Controller
     public function create()
     {
         $authors = Author::get();
+        $categories = Category::select([ 'id', 'name' ])->get();
 
-        return view('admin.forms.book.create', [ 'authors' => $authors ]);
+        return view('admin.forms.book.create', [
+            'authors' => $authors,
+            'categories' => $categories
+         ]);
     }
 
     /**
@@ -52,11 +57,15 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        Book::create([
+        $categories = $request->categories; // Categories IDs
+
+        $book = Book::create([
             'title' => $request->title,
             'describtion' => $request->describtion,
             'author_id' => $request->author_id,
         ]);
+
+        $book->categories()->attach($categories);
 
         return redirect(route('books.index'))->with('message', 'Book Added');
     }

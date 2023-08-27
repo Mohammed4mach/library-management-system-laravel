@@ -39,7 +39,7 @@
                             </a>
                         </x-table.td>
                         <x-table.td>
-                            {{ $category['books']?->count() ?? 0 }}
+                            {{ $category->books?->count() ?? 0 }}
                         </x-table.td>
                         <x-table.td class="return-link table__td--no_border table__td--text_center">
                             <a
