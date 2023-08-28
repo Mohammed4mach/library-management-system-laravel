@@ -43,7 +43,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        $authors = Author::get();
+        $authors    = Author::get();
         $categories = Category::select([ 'id', 'name' ])->get();
 
         return view('admin.forms.book.create', [
@@ -63,7 +63,7 @@ class BookController extends Controller
         $request->cover->move('storage\images\book_images',$pic);
 
         $book = Book::create([
-            'title' => $request->title,
+            'title'       => $request->title,
             'describtion' => $request->describtion,
             'author_id' => $request->author_id,
             'cover' => $pic,

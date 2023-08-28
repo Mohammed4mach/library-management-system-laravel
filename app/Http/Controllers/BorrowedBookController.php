@@ -14,28 +14,24 @@ class BorrowedBookController extends Controller
      */
     public function index()
     {
-        $books = BorrowedBook::get();
+        $books = BorrowedBook::orderBy('created_at', 'DESC')->get();
+        $books = $books->sortBy('returned');
 
         return view('admin.borrowed-books', [ 'books' => $books ]);
     }
-
-    /**
-     * Display a listing of the books borrowed by a user
-     *
-     * @param string $user User id
-     */
-    public function getOfCategory(string $user)
-    {
-
-    }
-
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('admin.forms.borrowed-book.create');
+        $users = User::get();
+        $books = Book::get();
+
+        return view('admin.forms.borrowed-book.create', [
+            'users' => $users,
+            'books' => $books,
+        ]);
     }
 
     /**
@@ -61,7 +57,22 @@ class BorrowedBookController extends Controller
      */
     public function userStore(string $book)
     {
+        $now    = new \DateTime();
+        $userId = auth()->id();
 
+        $returnDate = $now->modify('+14 days')->format('Y-m-d');
+
+        BorrowedBook::create([
+            'user_id'     => $userId,
+            'book_id'     => $book,
+            'return_date' => $returnDate,
+        ]);
+
+        Book::where('id', $book)->update([
+            'available' => false
+        ]);
+
+        return redirect()->back()->with('message', "Book Borrowed");
     }
 
     /**
@@ -98,11 +109,41 @@ class BorrowedBookController extends Controller
     }
 
     /**
+     * Mark a borrowed book as returned
+     *
+     * @param string $id Borrowal id
+     */
+    public function return(string $id)
+    {
+        $borrowed = BorrowedBook::findOrFail($id);
+        $book     = $borrowed->book();
+
+        $borrowed->update([
+            'returned' => true
+        ]);
+
+        $book->update([
+            'available' => true
+        ]);
+
+        return redirect()->back()->with('message', 'Borrowed book returned');
+    }
+
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        BorrowedBook::where('id', $id)->delete();
-        return redirect("")->with('message' , "Borrow Deleted");
+        $borrowed = BorrowedBook::findOrFail($id);
+        $book     = $borrowed->book();
+
+        $book->update([
+            'available' => true
+        ]);
+
+        $borrowed->delete();
+
+        return redirect()->back()->with('message' , 'Borrow Deleted');
     }
 }

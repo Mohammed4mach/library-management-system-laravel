@@ -10,20 +10,20 @@
 To build the application you should install **composer** and **node** packages:
 
 ```bash
-    composer install
-    npm install
+composer install
+npm install
 ```
 
 After that, you should run the servers to use the application:
 
 ```bash
-    npm run dev
+npm run dev
 ```
 
 and in another terminal:
 
 ```bash
-    php artisan serv
+php artisan serv
 ```
 
 ## Troubleshoot
@@ -32,5 +32,5 @@ If an error appear saying that there is no method called `is_admin()`,
 run the following line:
 
 ```bash
-    composer dump-autoload
+composer dump-autoload
 ```

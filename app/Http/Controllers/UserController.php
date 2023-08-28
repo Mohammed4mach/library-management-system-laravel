@@ -56,9 +56,9 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $user          = User::findOrFail($id);
-        $user->title   = $user->role()->get()->first()?->title;
-        $books = $user->borrowedBooks;
+        $user        = User::findOrFail($id);
+        $user->title = $user->role()->get()->first()?->title;
+        $books       = $user->borrowedBooks->sortByDesc('created_at')->sortBy('returned');
 
         return view('user.profile', $user, ['books' => $books]);
     }
@@ -71,9 +71,9 @@ class UserController extends Controller
         $id          = auth()->id();
         $user        = User::findOrFail($id);
         $user->title = $user->role()->get()->first()?->title;
-        $books       = $user->borrowedBooks;
+        $books       = $user->borrowedBooks->sortByDesc('created_at')->sortBy('returned');
 
-        return view('user.profile', $user, ['books' => $books]);
+        return view('user.profile', $user, [ 'books' => $books ]);
     }
 
     /**
