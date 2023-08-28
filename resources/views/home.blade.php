@@ -3,24 +3,23 @@
 @section('title', 'Home')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+    <x-h1 class="width-full flex-center margin-bottom-40px">Feed</x-h1>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    <section>
+        @forelse($books as $book)
+            <x-resource.book
+                class="margin-bottom-15px"
+                :id="$book->id"
+                :cover="$book->cover"
+                :title="$book->title"
+                :author="$book->author"
+                :describtion="$book->describtion"
+                :categories="$book->categories"
+                :available="$book->available"
+            />
+        @empty
+            <x-h3 class="width-full flex-center">No books to show</x-h3>
+        @endforelse
+    </section>
 @endsection
 

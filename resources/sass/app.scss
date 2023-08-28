@@ -22,11 +22,14 @@
 // User Components
 @import "user";
 
+// Resources
+@import "resources";
+
 *
 {
     padding: 0;
     margin: 0;
-
+    box-sizing: border-box;
 }
 
 body
@@ -159,6 +162,33 @@ $focusable: 'a', 'input', 'button', 'textarea', 'select';
         @extend .a;
 
         font-size: $font-s5;
+    }
+
+    @at-root #{&}--tag
+    {
+        @extend .a;
+
+        padding: 5px;
+        border-radius: 6px;
+        color: rgba($main-color, 0.55);
+        background-color: rgba($color-primary, 0.25);
+
+        &:hover
+        {
+            color: rgba($main-color, 0.55);
+        }
+    }
+
+    @at-root #{&}--text
+    {
+        @extend .a;
+
+        color: inherit;
+
+        &:hover
+        {
+            color: inherit;
+        }
     }
 }
 
