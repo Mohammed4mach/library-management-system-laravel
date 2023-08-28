@@ -59,10 +59,14 @@ class BookController extends Controller
     {
         $categories = $request->categories; // Categories IDs
 
+        $pic = uniqid() . '-' . $request->title . '.' . $request->cover->extension();
+        $request->cover->move('storage\images\book_images',$pic);
+
         $book = Book::create([
             'title'       => $request->title,
             'describtion' => $request->describtion,
-            'author_id'   => $request->author_id,
+            'author_id' => $request->author_id,
+            'cover' => $pic,
         ]);
 
         $book->categories()->attach($categories);
@@ -100,10 +104,14 @@ class BookController extends Controller
 
         $book = Book::find($id);
 
+        $pic = uniqid() . '-' . $request->title . '.' . $request->cover->extension();
+        $request->cover->move('storage\images\book_images',$pic);
+
         $book->update([
             'title'       => $request->title,
             'describtion' => $request->describtion,
             'author_id'   => $request->author_id,
+            'cover'       => $pic,
         ]);
 
         $book->categories()->sync($categories);
