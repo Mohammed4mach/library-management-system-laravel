@@ -67,11 +67,15 @@ class RegisterController extends Controller
     {
         $roles = Cache::get('roles');
 
+        $pic = time() . '-' . $data['name'] . '.' . $data['picture']->extension();
+        $data['picture']->move('storage\images\user_images',$pic);
+
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'name'     => $data['name'],
+            'email'    => $data['email'],
             'password' => Hash::make($data['password']),
-            'role_id' => $roles['student'] ?? null,
+            'role_id'  => $roles['student'] ?? null,
+            'picture'  => $pic,
         ]);
     }
 }
