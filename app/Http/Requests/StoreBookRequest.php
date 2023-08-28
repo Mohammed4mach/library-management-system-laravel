@@ -23,7 +23,8 @@ class StoreBookRequest extends FormRequest
     {
         return [
             'title'     => 'required|string',
-            'author_id' => 'required|exists:authors,id'
+            'author_id' => 'required|exists:authors,id',
+            'cover'   => 'required',
         ];
     }
 }

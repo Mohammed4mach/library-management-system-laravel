@@ -5,7 +5,7 @@
 @section('content')
     <x-h1 class="width-full flex-center margin-bottom-40px">Edit Author</x-h1>
 
-    <form class="flex-center flex-column" method="POST" action="{{ route('authors.update', $id) }}">
+    <form class="flex-center flex-column" method="POST" action="{{ route('authors.update', $id) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 

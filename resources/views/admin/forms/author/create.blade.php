@@ -5,7 +5,7 @@
 @section('content')
     <x-h1 class="width-full flex-center margin-bottom-40px">Add New Author</x-h1>
 
-    <form class="flex-center flex-column" method="POST" action="{{ route('authors.store') }}">
+    <form class="flex-center flex-column" method="POST" action="{{ route('authors.store') }}" enctype="multipart/form-data">
         @csrf
 
         <div class="flex-column width-368px">

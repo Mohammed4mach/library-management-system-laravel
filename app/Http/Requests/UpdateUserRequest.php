@@ -44,10 +44,11 @@ class UpdateUserRequest extends FormRequest
         $userId = Request::route()->parameter('user');
 
         return [
-            'name' => 'string',
-            'email' => ['required', Rule::unique('users')->ignore($userId), 'email'],
+            'name'     => 'string',
+            'email'    => ['required', Rule::unique('users')->ignore($userId), 'email'],
             'password' => 'min:8',
-            'role_id' => 'int|exists:roles,id'
+            'role_id'  => 'int|exists:roles,id',
+            'picture'  => 'required',
         ];
     }
 }

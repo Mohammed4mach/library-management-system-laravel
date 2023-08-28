@@ -39,8 +39,12 @@ class AuthorController extends Controller
      */
     public function store(StoreAuthorRequest $request)
     {
+        $pic = time() . '-' . $request->name . '.' . $request->picture->extension();
+        $request->picture->move('storage\images\authors_images',$pic);
+
         Author::create([
-            'name' => $request->name,
+            'name'    => $request->name,
+            'picture' => $pic,
         ]);
 
         return redirect(route('authors.index'))->with('message', 'Author Added');
@@ -69,8 +73,12 @@ class AuthorController extends Controller
      */
     public function update(StoreAuthorRequest $request, string $id)
     {
+        $pic = time() . '-' . $request->name . '.' . $request->picture->extension();
+        $request->picture->move('storage\images\authors_images',$pic);
+
         Author::where('id', $id)->update([
-            'name' => $request->name,
+            'name'    => $request->name,
+            'picture' => $pic,
         ]);
 
         return redirect(route('authors.index'))->with('message', 'Author Updated');
