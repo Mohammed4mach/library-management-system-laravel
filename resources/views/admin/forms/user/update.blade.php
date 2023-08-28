@@ -9,7 +9,7 @@
 @section('content')
     <x-h1 class="width-full flex-center margin-bottom-40px">Edit User</x-h1>
 
-    <form autocomplete="off" class="flex-center flex-column" method="POST" action="{{ route('user-update', $id) }}">
+    <form autocomplete="off" class="flex-center flex-column" method="POST" action="{{ route('user-update', $id) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
