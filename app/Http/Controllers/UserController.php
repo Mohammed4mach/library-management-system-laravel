@@ -41,11 +41,15 @@ class UserController extends Controller
 
         $role_id = $request->has('role_id') ? $request->role_id : $roles['student'];
 
+        $pic = time() . '-' . $request->name . '.' . $request->picture->extension();
+        $request->picture->move('storage\images\user_images',$pic);
+
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => $role_id,
+            'picture' => $pic,
         ]);
 
         return redirect(route('users.index'))->with('message', 'User Added');

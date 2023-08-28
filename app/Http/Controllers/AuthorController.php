@@ -23,7 +23,7 @@ class AuthorController extends Controller
     public function userIndex()
     {
         $data = Author::get();
-        return view("",["data"->$data]);
+        return view("",["data"=>$data]);
     }
 
     /**
