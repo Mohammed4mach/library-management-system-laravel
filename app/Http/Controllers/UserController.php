@@ -41,9 +41,6 @@ class UserController extends Controller
 
         $role_id = $request->has('role_id') ? $request->role_id : $roles['student'];
 
-        $pic = time() . '-' . $request->name . '.' . $request->picture->extension();
-        $request->picture->move('storage\images\user_images',$pic);
-
         User::create([
             'name' => $request->name,
             'email' => $request->email,

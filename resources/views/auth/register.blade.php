@@ -5,7 +5,7 @@
 @section('content')
     <x-h1 class="width-full flex-center margin-bottom-40px">Register</x-h1>
 
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
         @csrf
 
         <section class="flex-center flex-column">
