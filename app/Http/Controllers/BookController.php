@@ -60,7 +60,7 @@ class BookController extends Controller
         $categories = $request->categories; // Categories IDs
 
         $pic = time() . '-' . $request->title . '.' . $request->cover->extension();
-        $request->cover->move('storage\images\book_images',$pic);
+        $request->cover->move('storage/images/book_images',$pic);
 
         $book = Book::create([
             'title'       => $request->title,
@@ -105,7 +105,7 @@ class BookController extends Controller
         $book = Book::find($id);
 
         $pic = time() . '-' . $request->title . '.' . $request->cover->extension();
-        $request->cover->move('storage\images\book_images',$pic);
+        $request->cover->move('storage/images/book_images',$pic);
 
         $book->update([
             'title'       => $request->title,

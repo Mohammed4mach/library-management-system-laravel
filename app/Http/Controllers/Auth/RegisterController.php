@@ -68,7 +68,7 @@ class RegisterController extends Controller
         $roles = Cache::get('roles');
 
         $pic = time() . '-' . $data['name'] . '.' . $data['picture']->extension();
-        $data['picture']->move('storage\images\user_images',$pic);
+        $data['picture']->move('storage/images/user_images',$pic);
 
         return User::create([
             'name'     => $data['name'],
