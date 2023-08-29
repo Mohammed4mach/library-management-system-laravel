@@ -40,7 +40,7 @@ class AuthorController extends Controller
     public function store(StoreAuthorRequest $request)
     {
         $pic = time() . '-' . $request->name . '.' . $request->picture->extension();
-        $request->picture->move('storage\images\authors_images',$pic);
+        $request->picture->move('storage/images/authors_images',$pic);
 
         Author::create([
             'name'    => $request->name,
@@ -74,7 +74,7 @@ class AuthorController extends Controller
     public function update(StoreAuthorRequest $request, string $id)
     {
         $pic = time() . '-' . $request->name . '.' . $request->picture->extension();
-        $request->picture->move('storage\images\authors_images',$pic);
+        $request->picture->move('storage/images/authors_images',$pic);
 
         Author::where('id', $id)->update([
             'name'    => $request->name,

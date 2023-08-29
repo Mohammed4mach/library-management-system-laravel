@@ -94,7 +94,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, string $id)
     {
         $pic = time() . '-' . $request->name . '.' . $request->picture->extension();
-        $request->picture->move('storage\images\user_images',$pic);
+        $request->picture->move('storage/images/user_images',$pic);
         
         User::where('id', $id)->update([
             ...$request->validated(),
