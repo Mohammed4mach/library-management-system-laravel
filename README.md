@@ -1,4 +1,5 @@
 <p
+    align="center"
     style="text-align: center">
     <img src="./resources/images/logo/logo.svg" style="width: 600px;">
 </p>
