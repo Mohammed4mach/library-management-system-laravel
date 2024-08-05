@@ -70,7 +70,7 @@
                         <x-table.td class="return-link table__td--no_border table__td--text_center">
                             <a
                                 class="a--blue"
-                                href="{{ route('books.edit', $book['id']) }}"
+                                href="{{ route('borrowed-books.edit', $book['id']) }}"
                             >
                                 <i class="fa fa-pen"></i>
                             </a>

@@ -25,6 +25,11 @@
         color: #333B;
     }
 
+    &[disabled]
+    {
+        color: #777;
+    }
+
     @at-root #{&}--text-area
     {
         height: 120px;

@@ -47,3 +47,25 @@
     }
 }
 
+.category
+{
+    padding: 10px;
+    border: 1px groove #313;
+
+    @at-root #{&}__name
+    {
+        font: {
+            size: 30px;
+            weight: bold;
+        }
+    }
+
+    @at-root #{&}__books-count
+    {
+        font:
+        {
+            family: "Antic Didone"
+        }
+    }
+}
+

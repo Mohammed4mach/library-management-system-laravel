@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBorrowedBookRequest;
+use App\Http\Requests\UpdateBorrowedBookRequest;
 use App\Models\Book;
 use App\Models\BorrowedBook;
 use App\Models\User;
@@ -26,7 +27,7 @@ class BorrowedBookController extends Controller
     public function create()
     {
         $users = User::get();
-        $books = Book::get();
+        $books = Book::orderBy('title')->where('available', true)->get();
 
         return view('admin.forms.borrowed-book.create', [
             'users' => $users,
@@ -39,15 +40,13 @@ class BorrowedBookController extends Controller
      */
     public function store(StoreBorrowedBookRequest $request)
     {
-        $user_id = User::where('name',$request->user_name)->first();
-        $book_id = Book::where('name',$request->book_name)->first();
         BorrowedBook::create([
-        'user_id' => $user_id,
-        'book_id' => $book_id,
-        'returned' => $request->returned,
-        'return_date' => $request->return_date,
+            'user_id'     => $request->user_id,
+            'book_id'     => $request->book_id,
+            'return_date' => $request->return_date,
         ]);
-        return redirect("")->with('message',"Book Borrowed");
+
+        return redirect(route('borrowed-books.index'))->with('message', 'Book Borrowed');
     }
 
     /**
@@ -88,24 +87,23 @@ class BorrowedBookController extends Controller
      */
     public function edit(string $id)
     {
-        $data = BorrowedBook::where('id', $id)->first();
-        return view("",["data"=>$data]);
+        $borrowed = BorrowedBook::where('id', $id)->first();
+        $users    = User::get();
+        $books    = Book::orderBy('title')->where('available', true)->get();
+
+        return view('admin.forms.borrowed-book.update', compact('borrowed', 'users', 'books'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreBorrowedBookRequest $request, string $id)
+    public function update(UpdateBorrowedBookRequest $request, string $id)
     {
-        $user_id = User::where('name',$request->user_name)->first();
-        $book_id = Book::where('name',$request->book_name)->first();
         BorrowedBook::where('id', $id)->update([
-        'user_id' => $user_id['id'],
-        'book_id' => $book_id['id'],
-        'returned' => $request->returned,
-        'return_date' => $request->return_date,
+            'return_date' => $request->return_date,
         ]);
-        return redirect("")->with('message',"Borrow Updated");
+
+        return redirect(route('borrowed-books.index'))->with('message', 'Borrow Updated');
     }
 
     /**

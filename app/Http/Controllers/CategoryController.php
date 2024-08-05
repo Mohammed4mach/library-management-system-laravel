@@ -14,7 +14,17 @@ class CategoryController extends Controller
     {
         $categories = Category::get();
 
-        return view("admin.categories", [ "categories" => $categories ]);
+        return view('admin.categories', [ 'categories' => $categories ]);
+    }
+
+    /**
+     * Display a listing of the resource for users.
+     */
+    public function userIndex()
+    {
+        $categories = Category::get();
+
+        return view('categories', [ 'categories' => $categories ]);
     }
 
     /**
@@ -31,7 +41,7 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         Category::create([
-        'name' => $request->name,
+            'name' => $request->name,
         ]);
 
         return redirect(route('categories.index'))->with('message', 'Category Added');

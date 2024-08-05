@@ -101,6 +101,11 @@
     align-items: center;
 }
 
+.grid-center
+{
+    @include grid-center;
+}
+
 @mixin background-as-color
 {
     background-clip: text;
@@ -158,6 +163,11 @@ $__directions: 'top', 'right', 'bottom', 'left', 'inline', 'block';
 {
     @each $direction in $__directions
     {
+        .margin-#{$value}px
+        {
+            margin: #{$value}px;
+        }
+
         .margin-#{$direction}-#{$value}px
         {
             margin-#{$direction}: #{$value}px;
@@ -206,5 +216,10 @@ $__directions: 'top', 'right', 'bottom', 'left', 'inline', 'block';
     {
         height: #{$value}px
     }
+}
+
+.cursor-pointer
+{
+    cursor: pointer;
 }
 
