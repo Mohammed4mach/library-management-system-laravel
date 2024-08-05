@@ -66,8 +66,6 @@
         </x-table.container>
     @endif
 
-    {{  $authors->onEachSide(1)->links()  }}
-
     <section class="flex-center margin-top-60px">
         <a href="{{ route('authors.create') }}">
             <x-button.create>

@@ -6,7 +6,7 @@
 
     <title>{{ config('app.name') }} - Welcome to Our Bookstore</title>
 
-    <link rel="icon" href="{{ Vite::logo('icon.svg') }}">
+    {{-- <link rel="icon" href="{{ Vite::logo('icon.svg') }}"> --}}
 
     @vite([
         'resources/sass/app.scss',
